@@ -17,7 +17,12 @@ Game.prototype.addBaseRectangle = function () {
     // debugger;
     return this.reactangles[this.reactangles.length-1];
 };
+Game.prototype.moveDownRectangles = function () {
 
+  this.reactangles.forEach(function(rectangle){
+    rectangle.pos = [rectangle.pos[0],rectangle.pos[1]+20];
+  });
+};
 
 
 Game.prototype.addRectangles = function () {

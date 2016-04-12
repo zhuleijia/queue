@@ -40,8 +40,9 @@ MovingObject.prototype.move = function (timeDelta) {
 };
 
 
-MovingObject.prototype.nextRectangle = function (){
+MovingObject.prototype.stopRectangle = function (){
   this.vel = [0,0];
+
 };
 
 

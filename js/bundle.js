@@ -83,7 +83,12 @@
 	    // debugger;
 	    return this.reactangles[this.reactangles.length-1];
 	};
+	Game.prototype.moveDownRectangles = function () {
 	
+	  this.reactangles.forEach(function(rectangle){
+	    rectangle.pos = [rectangle.pos[0],rectangle.pos[1]+20];
+	  });
+	};
 	
 	
 	Game.prototype.addRectangles = function () {
@@ -158,8 +163,14 @@
 	
 	GameView.prototype.bindKeyHandlers = function () {
 	  var rectangle = this.rectangle;
-	
-	  key("return", function () { rectangle.nextRectangle() });
+	  var game = this.game;
+	  key("return", function () {
+	    rectangle.stopRectangle();
+	    // debugger;
+	    game.moveDownRectangles();
+	    rectangle = game.addRectangles();
+	  });
+	  this.rectangle = rectangle;
 	};
 	
 	module.exports = GameView;
@@ -211,8 +222,9 @@
 	};
 	
 	
-	MovingObject.prototype.nextRectangle = function (){
+	MovingObject.prototype.stopRectangle = function (){
 	  this.vel = [0,0];
+	
 	};
 	
 	

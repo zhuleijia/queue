@@ -25,8 +25,14 @@ GameView.prototype.animate = function(time){
 
 GameView.prototype.bindKeyHandlers = function () {
   var rectangle = this.rectangle;
-
-  key("return", function () { rectangle.nextRectangle() });
+  var game = this.game;
+  key("return", function () {
+    rectangle.stopRectangle();
+    // debugger;
+    game.moveDownRectangles();
+    rectangle = game.addRectangles();
+  });
+  this.rectangle = rectangle;
 };
 
 module.exports = GameView;
