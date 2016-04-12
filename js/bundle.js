@@ -97,10 +97,14 @@
 	  });
 	};
 	
+	Game.prototype.isOutOfBounds = function (pos, width) {
+	  return (pos[0] < 0) || (pos[1] < 0) ||
+	    (pos[0]+width > Game.DIM_X) || (pos[1] > Game.DIM_Y);
+	};
 	
 	
 	Game.prototype.add = function (object) {
-	  // debugger;
+	
 	  if (object.type === "MovingObject") {
 	    this.reactangles.push(object);
 	  } else {
@@ -149,7 +153,7 @@
 	
 	var DEFAULTS = {
 	  POS: [100,100],
-	  VEL: [1,0],
+	  VEL: [5,0],
 	  WIDTH: 100,
 	  HEIGHT: 20,
 		COLOR: "#ff0000",
@@ -181,14 +185,11 @@
 	
 	  this.pos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
 	
-	  // if (this.game.isOutOfBounds(this.pos)) {
-	  //   if (this.isWrappable) {
-	  //     this.pos = this.game.wrap(this.pos);
-	  //   } else {
-	  //     this.remove();
-	  //   }
-	  // }
+	  if (this.game.isOutOfBounds(this.pos, this.width)) {
+	    this.vel = [-this.vel[0],this.vel[1]];
+	  }
 	};
+	
 	MovingObject.prototype.type = "MovingObject";
 	module.exports = MovingObject;
 

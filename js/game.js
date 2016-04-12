@@ -33,10 +33,14 @@ Game.prototype.moveObjects = function (delta) {
   });
 };
 
+Game.prototype.isOutOfBounds = function (pos, width) {
+  return (pos[0] < 0) || (pos[1] < 0) ||
+    (pos[0]+width > Game.DIM_X) || (pos[1] > Game.DIM_Y);
+};
 
 
 Game.prototype.add = function (object) {
-  // debugger;
+
   if (object.type === "MovingObject") {
     this.reactangles.push(object);
   } else {
