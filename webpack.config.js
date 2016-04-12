@@ -4,7 +4,7 @@ module.exports = {
   output: {
     path: "./js",
     publicPath: "/js/",
-    filename: "bundle.js",
+    filename: "./bundle.js",
     devtoolModuleFilenameTemplate: '[resourcePath]',
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
   },
