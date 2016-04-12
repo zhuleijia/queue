@@ -1,5 +1,7 @@
 var Game = require('./game');
 var GameView = require('./gameView');
+// var Keymaster = require("../vendor/keymaster");
+
 
 document.addEventListener('DOMContentLoaded', function(){
   var canvasEl = document.getElementsByTagName("canvas")[0];

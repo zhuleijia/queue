@@ -3,18 +3,28 @@ var MovingObject = require('./movingObject');
 var Game = function () {
   this.reactangles = [];
 
-  this.addRectangles();
+  this.addBaseRectangle();
 };
 
 Game.BG_COLOR = "#000000";
-Game.DIM_X = 1000;
-Game.DIM_Y = 600;
+Game.DIM_X = 500;
+Game.DIM_Y = 500;
 Game.NUM_RECTANGLES = 1;
 
+Game.prototype.addBaseRectangle = function () {
+
+    this.add(new MovingObject({ pos:[200,400],game: this, vel:[0,0], color:"green" }));
+    // debugger;
+    return this.reactangles[this.reactangles.length-1];
+};
+
+
+
 Game.prototype.addRectangles = function () {
-  for (var i = 0; i < Game.NUM_RECTANGLES; i++) {
+
     this.add(new MovingObject({ game: this }));
-  }
+    // debugger;
+    return this.reactangles[this.reactangles.length-1];
 };
 
 Game.prototype.draw = function (ctx) {

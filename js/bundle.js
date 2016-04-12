@@ -46,6 +46,8 @@
 
 	var Game = __webpack_require__(1);
 	var GameView = __webpack_require__(2);
+	// var Keymaster = require("../vendor/keymaster");
+	
 	
 	document.addEventListener('DOMContentLoaded', function(){
 	  var canvasEl = document.getElementsByTagName("canvas")[0];
@@ -67,18 +69,28 @@
 	var Game = function () {
 	  this.reactangles = [];
 	
-	  this.addRectangles();
+	  this.addBaseRectangle();
 	};
 	
 	Game.BG_COLOR = "#000000";
-	Game.DIM_X = 1000;
-	Game.DIM_Y = 600;
+	Game.DIM_X = 500;
+	Game.DIM_Y = 500;
 	Game.NUM_RECTANGLES = 1;
 	
+	Game.prototype.addBaseRectangle = function () {
+	
+	    this.add(new MovingObject({ pos:[200,400],game: this, vel:[0,0], color:"green" }));
+	    // debugger;
+	    return this.reactangles[this.reactangles.length-1];
+	};
+	
+	
+	
 	Game.prototype.addRectangles = function () {
-	  for (var i = 0; i < Game.NUM_RECTANGLES; i++) {
+	
 	    this.add(new MovingObject({ game: this }));
-	  }
+	    // debugger;
+	    return this.reactangles[this.reactangles.length-1];
 	};
 	
 	Game.prototype.draw = function (ctx) {
@@ -122,11 +134,12 @@
 	var GameView = function (game, ctx) {
 	  this.ctx = ctx;
 	  this.game = game;
+	  this.rectangle = this.game.addRectangles();
 	};
 	
 	
-	
 	GameView.prototype.start = function () {
+	  this.bindKeyHandlers();
 	  this.lastTime = 0;
 	  //start the animation
 	  requestAnimationFrame(this.animate.bind(this));
@@ -143,6 +156,12 @@
 	  requestAnimationFrame(this.animate.bind(this));
 	};
 	
+	GameView.prototype.bindKeyHandlers = function () {
+	  var rectangle = this.rectangle;
+	
+	  key("return", function () { rectangle.nextRectangle() });
+	};
+	
 	module.exports = GameView;
 
 
@@ -152,7 +171,7 @@
 
 	
 	var DEFAULTS = {
-	  POS: [100,100],
+	  POS: [100,380],
 	  VEL: [5,0],
 	  WIDTH: 100,
 	  HEIGHT: 20,
@@ -188,7 +207,14 @@
 	  if (this.game.isOutOfBounds(this.pos, this.width)) {
 	    this.vel = [-this.vel[0],this.vel[1]];
 	  }
+	
 	};
+	
+	
+	MovingObject.prototype.nextRectangle = function (){
+	  this.vel = [0,0];
+	};
+	
 	
 	MovingObject.prototype.type = "MovingObject";
 	module.exports = MovingObject;

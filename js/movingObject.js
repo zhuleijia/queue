@@ -1,6 +1,6 @@
 
 var DEFAULTS = {
-  POS: [100,100],
+  POS: [100,380],
   VEL: [5,0],
   WIDTH: 100,
   HEIGHT: 20,
@@ -36,7 +36,14 @@ MovingObject.prototype.move = function (timeDelta) {
   if (this.game.isOutOfBounds(this.pos, this.width)) {
     this.vel = [-this.vel[0],this.vel[1]];
   }
+
 };
+
+
+MovingObject.prototype.nextRectangle = function (){
+  this.vel = [0,0];
+};
+
 
 MovingObject.prototype.type = "MovingObject";
 module.exports = MovingObject;
