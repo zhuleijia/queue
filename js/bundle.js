@@ -79,7 +79,7 @@
 	
 	Game.prototype.addBaseRectangle = function () {
 	
-	    this.add(new MovingObject({ pos:[200,400],game: this, vel:[0,0], color:"green" }));
+	    this.add(new MovingObject({ pos:[200,300],game: this, vel:[0,0], color:"green" }));
 	    // debugger;
 	    return this.reactangles[this.reactangles.length-1];
 	};
@@ -91,11 +91,18 @@
 	};
 	
 	
-	Game.prototype.addRectangles = function (width) {
+	Game.prototype.addRectangles = function (width, vel) {
 	  if (width){
-	    this.add(new MovingObject({ width:width, game: this }));
+	    console.log(vel);
+	    this.add(new MovingObject({
+	      width:width,
+	      vel: [Math.abs(vel[0])+0.3,vel[1]],
+	      game: this
+	    }));
 	  }else{
-	    this.add(new MovingObject({ game: this }));
+	    this.add(new MovingObject({
+	      game: this
+	    }));
 	  }
 	    return this.reactangles[this.reactangles.length-1];
 	};
@@ -168,6 +175,7 @@
 	  var that = this;
 	  var game = this.game;
 	  var width;
+	  var vel;
 	  console.log("begin");
 	  key("return", function () {
 	    var currentRectangle = that.currentRectangle;
@@ -179,11 +187,12 @@
 	      window.alert("you lose");
 	
 	    } else{
+	      vel = currentRectangle.vel;
 	      currentRectangle.stopRectangle(previousRectangle);
 	      width = currentRectangle.width;
 	      game.moveDownRectangles();
 	      previousRectangle = currentRectangle;
-	      currentRectangle = game.addRectangles(width);
+	      currentRectangle = game.addRectangles(width, vel);
 	
 	      that.previousRectangle = previousRectangle;
 	      that.currentRectangle = currentRectangle;
@@ -200,11 +209,11 @@
 
 	
 	var DEFAULTS = {
-	  POS: [100,380],
+	  POS: [100,280],
 	  VEL: [5,0],
 	  WIDTH: 100,
 	  HEIGHT: 20,
-		COLOR: "#ff0000",
+		// COLOR: "#ff0000",
 	
 	};
 	
@@ -214,10 +223,19 @@
 	  this.vel = options.vel || DEFAULTS.VEL;
 	  this.width = options.width || DEFAULTS.WIDTH;
 	  this.height = options.height || DEFAULTS.HEIGHT;
-	  this.color = options.color || DEFAULTS.COLOR;
+	  this.color = options.color || this.getRandomColor();
 	  this.game = options.game;
 	};
 	
+	MovingObject.prototype.getRandomColor = function () {
+	
+	    var letters = '0123456789ABCDEF'.split('');
+	    var color = '#';
+	    for (var i = 0; i < 6; i++ ) {
+	        color += letters[Math.floor(Math.random() * 16)];
+	    }
+	    return color;
+	};
 	
 	MovingObject.prototype.draw = function (ctx) {
 	  ctx.fillStyle = this.color;

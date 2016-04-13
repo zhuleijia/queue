@@ -28,6 +28,7 @@ GameView.prototype.bindKeyHandlers = function () {
   var that = this;
   var game = this.game;
   var width;
+  var vel;
   console.log("begin");
   key("return", function () {
     var currentRectangle = that.currentRectangle;
@@ -39,11 +40,12 @@ GameView.prototype.bindKeyHandlers = function () {
       window.alert("you lose");
 
     } else{
+      vel = currentRectangle.vel;
       currentRectangle.stopRectangle(previousRectangle);
       width = currentRectangle.width;
       game.moveDownRectangles();
       previousRectangle = currentRectangle;
-      currentRectangle = game.addRectangles(width);
+      currentRectangle = game.addRectangles(width, vel);
 
       that.previousRectangle = previousRectangle;
       that.currentRectangle = currentRectangle;

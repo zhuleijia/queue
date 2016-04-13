@@ -1,10 +1,10 @@
 
 var DEFAULTS = {
-  POS: [100,380],
+  POS: [100,280],
   VEL: [5,0],
   WIDTH: 100,
   HEIGHT: 20,
-	COLOR: "#ff0000",
+	// COLOR: "#ff0000",
 
 };
 
@@ -14,10 +14,19 @@ var MovingObject = function (options) {
   this.vel = options.vel || DEFAULTS.VEL;
   this.width = options.width || DEFAULTS.WIDTH;
   this.height = options.height || DEFAULTS.HEIGHT;
-  this.color = options.color || DEFAULTS.COLOR;
+  this.color = options.color || this.getRandomColor();
   this.game = options.game;
 };
 
+MovingObject.prototype.getRandomColor = function () {
+
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
 
 MovingObject.prototype.draw = function (ctx) {
   ctx.fillStyle = this.color;

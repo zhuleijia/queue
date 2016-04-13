@@ -13,7 +13,7 @@ Game.NUM_RECTANGLES = 1;
 
 Game.prototype.addBaseRectangle = function () {
 
-    this.add(new MovingObject({ pos:[200,400],game: this, vel:[0,0], color:"green" }));
+    this.add(new MovingObject({ pos:[200,300],game: this, vel:[0,0], color:"green" }));
     // debugger;
     return this.reactangles[this.reactangles.length-1];
 };
@@ -25,11 +25,18 @@ Game.prototype.moveDownRectangles = function () {
 };
 
 
-Game.prototype.addRectangles = function (width) {
+Game.prototype.addRectangles = function (width, vel) {
   if (width){
-    this.add(new MovingObject({ width:width, game: this }));
+    console.log(vel);
+    this.add(new MovingObject({
+      width:width,
+      vel: [Math.abs(vel[0])+0.3,vel[1]],
+      game: this
+    }));
   }else{
-    this.add(new MovingObject({ game: this }));
+    this.add(new MovingObject({
+      game: this
+    }));
   }
     return this.reactangles[this.reactangles.length-1];
 };
