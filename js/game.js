@@ -3,7 +3,7 @@ var MovingObject = require('./movingObject');
 var Game = function () {
   this.reactangles = [];
 
-  this.addBaseRectangle();
+
 };
 
 Game.BG_COLOR = "#000000";
@@ -25,10 +25,12 @@ Game.prototype.moveDownRectangles = function () {
 };
 
 
-Game.prototype.addRectangles = function () {
-
+Game.prototype.addRectangles = function (width) {
+  if (width){
+    this.add(new MovingObject({ width:width, game: this }));
+  }else{
     this.add(new MovingObject({ game: this }));
-    // debugger;
+  }
     return this.reactangles[this.reactangles.length-1];
 };
 

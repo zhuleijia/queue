@@ -1,7 +1,8 @@
 var GameView = function (game, ctx) {
   this.ctx = ctx;
   this.game = game;
-  this.rectangle = this.game.addRectangles();
+  this.previousRectangle = this.game.addBaseRectangle();
+  this.currentRectangle = this.game.addRectangles();
 };
 
 
@@ -24,15 +25,30 @@ GameView.prototype.animate = function(time){
 };
 
 GameView.prototype.bindKeyHandlers = function () {
-  var rectangle = this.rectangle;
+  var that = this;
   var game = this.game;
+  var width;
+  console.log("begin");
   key("return", function () {
-    rectangle.stopRectangle();
-    // debugger;
-    game.moveDownRectangles();
-    rectangle = game.addRectangles();
+    var currentRectangle = that.currentRectangle;
+    var previousRectangle = that.previousRectangle;
+    if ((currentRectangle.pos[0] < previousRectangle.pos[0] &&
+      currentRectangle.pos[0]+currentRectangle.width < previousRectangle.pos[0]) ||
+    (currentRectangle.pos[0] > previousRectangle.pos[0] +previousRectangle.width &&
+      currentRectangle.pos[0]+currentRectangle.width > previousRectangle.pos[0]+previousRectangle.width) ){
+      window.alert("you lose");
+
+    } else{
+      currentRectangle.stopRectangle(previousRectangle);
+      width = currentRectangle.width;
+      game.moveDownRectangles();
+      previousRectangle = currentRectangle;
+      currentRectangle = game.addRectangles(width);
+
+      that.previousRectangle = previousRectangle;
+      that.currentRectangle = currentRectangle;
+    }
   });
-  this.rectangle = rectangle;
 };
 
 module.exports = GameView;

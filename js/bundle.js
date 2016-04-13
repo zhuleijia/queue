@@ -69,7 +69,7 @@
 	var Game = function () {
 	  this.reactangles = [];
 	
-	  this.addBaseRectangle();
+	
 	};
 	
 	Game.BG_COLOR = "#000000";
@@ -91,10 +91,12 @@
 	};
 	
 	
-	Game.prototype.addRectangles = function () {
-	
+	Game.prototype.addRectangles = function (width) {
+	  if (width){
+	    this.add(new MovingObject({ width:width, game: this }));
+	  }else{
 	    this.add(new MovingObject({ game: this }));
-	    // debugger;
+	  }
 	    return this.reactangles[this.reactangles.length-1];
 	};
 	
@@ -139,7 +141,8 @@
 	var GameView = function (game, ctx) {
 	  this.ctx = ctx;
 	  this.game = game;
-	  this.rectangle = this.game.addRectangles();
+	  this.previousRectangle = this.game.addBaseRectangle();
+	  this.currentRectangle = this.game.addRectangles();
 	};
 	
 	
@@ -162,15 +165,30 @@
 	};
 	
 	GameView.prototype.bindKeyHandlers = function () {
-	  var rectangle = this.rectangle;
+	  var that = this;
 	  var game = this.game;
+	  var width;
+	  console.log("begin");
 	  key("return", function () {
-	    rectangle.stopRectangle();
-	    // debugger;
-	    game.moveDownRectangles();
-	    rectangle = game.addRectangles();
+	    var currentRectangle = that.currentRectangle;
+	    var previousRectangle = that.previousRectangle;
+	    if ((currentRectangle.pos[0] < previousRectangle.pos[0] &&
+	      currentRectangle.pos[0]+currentRectangle.width < previousRectangle.pos[0]) ||
+	    (currentRectangle.pos[0] > previousRectangle.pos[0] +previousRectangle.width &&
+	      currentRectangle.pos[0]+currentRectangle.width > previousRectangle.pos[0]+previousRectangle.width) ){
+	      window.alert("you lose");
+	
+	    } else{
+	      currentRectangle.stopRectangle(previousRectangle);
+	      width = currentRectangle.width;
+	      game.moveDownRectangles();
+	      previousRectangle = currentRectangle;
+	      currentRectangle = game.addRectangles(width);
+	
+	      that.previousRectangle = previousRectangle;
+	      that.currentRectangle = currentRectangle;
+	    }
 	  });
-	  this.rectangle = rectangle;
 	};
 	
 	module.exports = GameView;
@@ -222,9 +240,18 @@
 	};
 	
 	
-	MovingObject.prototype.stopRectangle = function (){
-	  this.vel = [0,0];
+	MovingObject.prototype.stopRectangle = function (previousRectangle){
+	  if (this.pos[0] < previousRectangle.pos[0]){//stick out left
+	    this.width = this.pos[0] + this.width - previousRectangle.pos[0];
+	  } else if (this.pos[0] > previousRectangle.pos[0]){//sticks out right
+	    this.width = previousRectangle.pos[0]+ previousRectangle.width - this.pos[0];
+	  }
 	
+	  if (this.pos[0] < previousRectangle.pos[0]){
+	    this.pos[0]=previousRectangle.pos[0];
+	  }
+	  this.vel = [0,0];
+	  return this.width;
 	};
 	
 	

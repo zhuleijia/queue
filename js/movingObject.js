@@ -40,9 +40,18 @@ MovingObject.prototype.move = function (timeDelta) {
 };
 
 
-MovingObject.prototype.stopRectangle = function (){
-  this.vel = [0,0];
+MovingObject.prototype.stopRectangle = function (previousRectangle){
+  if (this.pos[0] < previousRectangle.pos[0]){//stick out left
+    this.width = this.pos[0] + this.width - previousRectangle.pos[0];
+  } else if (this.pos[0] > previousRectangle.pos[0]){//sticks out right
+    this.width = previousRectangle.pos[0]+ previousRectangle.width - this.pos[0];
+  }
 
+  if (this.pos[0] < previousRectangle.pos[0]){
+    this.pos[0]=previousRectangle.pos[0];
+  }
+  this.vel = [0,0];
+  return this.width;
 };
 
 
