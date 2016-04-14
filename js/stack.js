@@ -12,18 +12,13 @@ var GameView = require('./gameView');
       gameScreen = document.getElementById("queue-canvas"),
       startButton = document.getElementsByClassName("start-button")[0];
 
-
-  startButton.addEventListener("click", function(event) {
+  var fn3 = function(event) {
     startScreen.className = "hide";
     gameScreen.className = "show";
 
     new GameView(game, ctx).start();
-  });
+  };
 
-  startButton.removeEventListener("click", function(event) {
+  startButton.addEventListener("click", fn3);
 
-    startScreen.className = "hide";
-    gameScreen.className = "show";
-
-    new GameView(game, ctx).start();
-  });
+  // startButton.removeEventListener("click", fn3);

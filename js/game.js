@@ -79,24 +79,13 @@ var fn2 = function(event) {
   startScreen.className = "start-screen";
 };
 Game.prototype.goToEndScreen = function () {
-  // debugger;
+
     game = this;
     endScreen.className = "end-screen";
     gameScreen.className = "hide";
     playAgainButton.addEventListener("click", fn);
-    // playAgainButton.removeEventListener("click",fn);
-    // playAgainButton.removeEventListener("click", function(event) {
-    //   endScreen.className = "hide";
-    //   gameScreen.className = "show";
-    //
-    //   game.resetGame();
-    // });
     returnToWelcomeScreenButton.addEventListener("click", fn2);
-    // returnToWelcomeScreenButton.removeEventListener("click",fn2);
-    // returnToWelcomeScreenButton.removeEventListener("click", function(event) {
-    //   endScreen.className = "hide";
-    //   startScreen.className = "start-screen";
-    // });
+
   };
   Game.prototype.resetGame = function () {
     var newGame = new Game();
@@ -104,7 +93,7 @@ Game.prototype.goToEndScreen = function () {
     canvas.width = Game.DIM_X;
     canvas.height = Game.DIM_Y;
     var ctx = canvas.getContext("2d");
-    key.unbind('return');
+    // key.unbind('return');
     new GameView(newGame, ctx).start();
     playAgainButton.removeEventListener("click",fn);
     returnToWelcomeScreenButton.removeEventListener("click",fn2);

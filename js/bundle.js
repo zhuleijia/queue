@@ -58,21 +58,16 @@
 	      gameScreen = document.getElementById("queue-canvas"),
 	      startButton = document.getElementsByClassName("start-button")[0];
 	
-	
-	  startButton.addEventListener("click", function(event) {
+	  var fn3 = function(event) {
 	    startScreen.className = "hide";
 	    gameScreen.className = "show";
 	
 	    new GameView(game, ctx).start();
-	  });
+	  };
 	
-	  startButton.removeEventListener("click", function(event) {
+	  startButton.addEventListener("click", fn3);
 	
-	    startScreen.className = "hide";
-	    gameScreen.className = "show";
-	
-	    new GameView(game, ctx).start();
-	  });
+	  // startButton.removeEventListener("click", fn3);
 
 
 /***/ },
@@ -160,24 +155,13 @@
 	  startScreen.className = "start-screen";
 	};
 	Game.prototype.goToEndScreen = function () {
-	  // debugger;
+	
 	    game = this;
 	    endScreen.className = "end-screen";
 	    gameScreen.className = "hide";
 	    playAgainButton.addEventListener("click", fn);
-	    // playAgainButton.removeEventListener("click",fn);
-	    // playAgainButton.removeEventListener("click", function(event) {
-	    //   endScreen.className = "hide";
-	    //   gameScreen.className = "show";
-	    //
-	    //   game.resetGame();
-	    // });
 	    returnToWelcomeScreenButton.addEventListener("click", fn2);
-	    // returnToWelcomeScreenButton.removeEventListener("click",fn2);
-	    // returnToWelcomeScreenButton.removeEventListener("click", function(event) {
-	    //   endScreen.className = "hide";
-	    //   startScreen.className = "start-screen";
-	    // });
+	
 	  };
 	  Game.prototype.resetGame = function () {
 	    var newGame = new Game();
@@ -185,7 +169,7 @@
 	    canvas.width = Game.DIM_X;
 	    canvas.height = Game.DIM_Y;
 	    var ctx = canvas.getContext("2d");
-	    key.unbind('return');
+	    // key.unbind('return');
 	    new GameView(newGame, ctx).start();
 	    playAgainButton.removeEventListener("click",fn);
 	    returnToWelcomeScreenButton.removeEventListener("click",fn2);
@@ -282,6 +266,7 @@
 	      currentRectangle.pos[0]+currentRectangle.width < previousRectangle.pos[0]) ||
 	    (currentRectangle.pos[0] > previousRectangle.pos[0] +previousRectangle.width &&
 	      currentRectangle.pos[0]+currentRectangle.width > previousRectangle.pos[0]+previousRectangle.width) ){
+	        key.unbind('return');
 	      return that.stop();
 	
 	

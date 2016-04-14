@@ -51,6 +51,7 @@ GameView.prototype.bindKeyHandlers = function () {
       currentRectangle.pos[0]+currentRectangle.width < previousRectangle.pos[0]) ||
     (currentRectangle.pos[0] > previousRectangle.pos[0] +previousRectangle.width &&
       currentRectangle.pos[0]+currentRectangle.width > previousRectangle.pos[0]+previousRectangle.width) ){
+        key.unbind('return');
       return that.stop();
 
 
