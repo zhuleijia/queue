@@ -3,10 +3,57 @@
   <head>
     <meta charset="utf-8">
     <title>Stack</title>
-
+    <link rel="stylesheet" type="text/css" href="queue.css">
   </head>
-  <body>
-    <canvas></canvas>
+  <body >
+    <h1>Queue</h1>
+    <section class="main">
+
+
+      <!-- WELCOME SCREEN -->
+
+      <section id="start-screen" class="start-screen">
+        <section class="title">
+          <p>
+
+            Queue
+
+          </p>
+        </section>
+
+        <section class="instructions">
+          <p>
+            Use the "return" key to place the rectangle on top of queues of rectangles.</p> <p> Portion of the rectangle will get cut off if it sticks out from the previous rectangle.
+
+          </p>
+        </section>
+
+        <section class="start-button">
+          <a>
+            <p>Begin!</p>
+          </a>
+        </section>
+
+      </section>
+      <canvas id="queue-canvas" class="hide" style="border: 5px solid #aaaaaa;"></canvas>
+      <section id="end-screen" class="hide">
+
+        <section class="end-message">
+          <p>Sorry, you lost!</p>
+        </section>
+
+        <section id="score" class="score">
+        </section>
+
+        <section class="end-buttons group">
+          <a id="play-again">Play Again!</a>
+          <a id="return-to-welcome-screen">Welcome Screen</a>
+        </section>
+
+
+
+      </section>
+    <!-- <canvas></canvas> -->
     <script type="application/javascript" src="vendor/keymaster.js"></script>
     <script type="application/javascript" src="js/bundle.js"></script>
   </body>

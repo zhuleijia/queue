@@ -46,18 +46,33 @@
 
 	var Game = __webpack_require__(1);
 	var GameView = __webpack_require__(2);
-	// var Keymaster = require("../vendor/keymaster");
 	
 	
-	document.addEventListener('DOMContentLoaded', function(){
-	  var canvasEl = document.getElementsByTagName("canvas")[0];
-	  canvasEl.width = Game.DIM_X;
-	  canvasEl.height = Game.DIM_Y;
-	
-	  var ctx = canvasEl.getContext("2d");
+	  var canvas = document.getElementById("queue-canvas");
+	  canvas.width = Game.DIM_X;
+	  canvas.height = Game.DIM_Y;
+	  var ctx = canvas.getContext("2d");
 	  var game = new Game();
-	  new GameView(game, ctx).start();
-	});
+	
+	  var startScreen = document.getElementsByClassName("start-screen")[0],
+	      gameScreen = document.getElementById("queue-canvas"),
+	      startButton = document.getElementsByClassName("start-button")[0];
+	
+	
+	  startButton.addEventListener("click", function(event) {
+	    startScreen.className = "hide";
+	    gameScreen.className = "show";
+	
+	    new GameView(game, ctx).start();
+	  });
+	
+	  startButton.removeEventListener("click", function(event) {
+	
+	    startScreen.className = "hide";
+	    gameScreen.className = "show";
+	
+	    new GameView(game, ctx).start();
+	  });
 
 
 /***/ },
@@ -65,12 +80,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	// var Rectangle = require("./rectangle");
+	var GameView = __webpack_require__(2);
 	var MovingObject = __webpack_require__(3);
 	var Game = function () {
 	  this.reactangles = [];
-	
+	  this.score = this.reactangles.length;
 	
 	};
+	
 	
 	Game.BG_COLOR = "#000000";
 	Game.DIM_X = 500;
@@ -80,7 +97,8 @@
 	Game.prototype.addBaseRectangle = function () {
 	
 	    this.add(new MovingObject({ pos:[200,300],game: this, vel:[0,0], color:"green" }));
-	    // debugger;
+	
+	    this.score = this.reactangles.length-1;
 	    return this.reactangles[this.reactangles.length-1];
 	};
 	Game.prototype.moveDownRectangles = function () {
@@ -93,7 +111,7 @@
 	
 	Game.prototype.addRectangles = function (width, vel) {
 	  if (width){
-	    console.log(vel);
+	    // console.log("adding rectangle");
 	    this.add(new MovingObject({
 	      width:width,
 	      vel: [Math.abs(vel[0])+0.3,vel[1]],
@@ -104,14 +122,80 @@
 	      game: this
 	    }));
 	  }
+	    this.score = this.reactangles.length-1;
+	        console.log("rect added");
+	        console.log(this.score);
 	    return this.reactangles[this.reactangles.length-1];
 	};
+	
+	Game.prototype.drawScore = function(ctx){
+	    ctx.font = "30px san-serif";
+	    ctx.fillStyle = 'white';
+	    ctx.fillText("queue: " + this.score, 10, 50);
+	};
+	
+	Game.prototype.gameOver = function(){
+	  // debugger;
+	  this.cleanUp();
+	  this.goToEndScreen();
+	};
+	Game.prototype.cleanUp = function () {
+	  this.reactangles = [];
+	  this.score = this.reactangles.length;
+	
+	};
+	var endScreen =                   document.getElementById("end-screen"),
+	    gameScreen =                  document.getElementById("queue-canvas"),
+	    startScreen =                 document.getElementById("start-screen"),
+	    playAgainButton =             document.getElementById("play-again"),
+	    returnToWelcomeScreenButton = document.getElementById("return-to-welcome-screen");
+	var fn = function(event) {
+	  endScreen.className = "hide";
+	  gameScreen.className = "show";
+	
+	  game.resetGame();
+	};
+	var fn2 = function(event) {
+	  endScreen.className = "hide";
+	  startScreen.className = "start-screen";
+	};
+	Game.prototype.goToEndScreen = function () {
+	  // debugger;
+	    game = this;
+	    endScreen.className = "end-screen";
+	    gameScreen.className = "hide";
+	    playAgainButton.addEventListener("click", fn);
+	    // playAgainButton.removeEventListener("click",fn);
+	    // playAgainButton.removeEventListener("click", function(event) {
+	    //   endScreen.className = "hide";
+	    //   gameScreen.className = "show";
+	    //
+	    //   game.resetGame();
+	    // });
+	    returnToWelcomeScreenButton.addEventListener("click", fn2);
+	    // returnToWelcomeScreenButton.removeEventListener("click",fn2);
+	    // returnToWelcomeScreenButton.removeEventListener("click", function(event) {
+	    //   endScreen.className = "hide";
+	    //   startScreen.className = "start-screen";
+	    // });
+	  };
+	  Game.prototype.resetGame = function () {
+	    var newGame = new Game();
+	    var canvas = document.getElementById("queue-canvas");
+	    canvas.width = Game.DIM_X;
+	    canvas.height = Game.DIM_Y;
+	    var ctx = canvas.getContext("2d");
+	    key.unbind('return');
+	    new GameView(newGame, ctx).start();
+	    playAgainButton.removeEventListener("click",fn);
+	    returnToWelcomeScreenButton.removeEventListener("click",fn2);
+	  };
 	
 	Game.prototype.draw = function (ctx) {
 	  ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
 	  ctx.fillStyle = Game.BG_COLOR;
 	  ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
-	
+	  this.drawScore(ctx);
 	  this.reactangles.forEach(function (object) {
 	    object.draw(ctx);
 	  });
@@ -150,25 +234,36 @@
 	  this.game = game;
 	  this.previousRectangle = this.game.addBaseRectangle();
 	  this.currentRectangle = this.game.addRectangles();
+	
+	
 	};
 	
 	
 	GameView.prototype.start = function () {
 	  this.bindKeyHandlers();
-	  this.lastTime = 0;
-	  //start the animation
-	  requestAnimationFrame(this.animate.bind(this));
+	  this.lastTime = performance.now();
+	
+	  this.token1 = requestAnimationFrame(this.animate.bind(this));
 	};
 	
+	GameView.prototype.stop = function () {
+	
+	  window.cancelAnimationFrame(this.token1);
+	  window.cancelAnimationFrame(this.token2);
+	  this.game.gameOver();
+	
+	};
+	
+	
 	GameView.prototype.animate = function(time){
+	
 	  var timeDelta = time - this.lastTime;
 	
-	  this.game.moveObjects(timeDelta);
 	  this.game.draw(this.ctx);
+	  this.game.moveObjects(timeDelta);
 	  this.lastTime = time;
 	
-	  //every call to animate requests causes another call to animate
-	  requestAnimationFrame(this.animate.bind(this));
+	  this.token2 = requestAnimationFrame(this.animate.bind(this));
 	};
 	
 	GameView.prototype.bindKeyHandlers = function () {
@@ -176,15 +271,19 @@
 	  var game = this.game;
 	  var width;
 	  var vel;
-	  console.log("begin");
+	  var currentRectangle;
+	  var previousRectangle;
+	
 	  key("return", function () {
-	    var currentRectangle = that.currentRectangle;
-	    var previousRectangle = that.previousRectangle;
+	    console.log("return triggerred");
+	     currentRectangle = that.currentRectangle;
+	     previousRectangle = that.previousRectangle;
 	    if ((currentRectangle.pos[0] < previousRectangle.pos[0] &&
 	      currentRectangle.pos[0]+currentRectangle.width < previousRectangle.pos[0]) ||
 	    (currentRectangle.pos[0] > previousRectangle.pos[0] +previousRectangle.width &&
 	      currentRectangle.pos[0]+currentRectangle.width > previousRectangle.pos[0]+previousRectangle.width) ){
-	      window.alert("you lose");
+	      return that.stop();
+	
 	
 	    } else{
 	      vel = currentRectangle.vel;
@@ -196,6 +295,7 @@
 	
 	      that.previousRectangle = previousRectangle;
 	      that.currentRectangle = currentRectangle;
+	
 	    }
 	  });
 	};

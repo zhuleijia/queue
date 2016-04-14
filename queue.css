@@ -1,0 +1,236 @@
+
+
+/* RESET */
+
+
+html, body, section, ul, li,
+p, a, i, span {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  font-style: normal;
+  text-decoration: none;
+  background: transparent;
+}
+
+li {
+  list-style: none;
+}
+
+
+/* CLEAR FIX */
+
+
+.group:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+
+/* MAIN CONTENT */
+
+
+.main {
+  margin: auto;
+  padding: 20px 0 0 0;
+  max-width: 1000px;
+}
+
+
+/* WELCOME SCREEN */
+
+
+.start-screen {
+  max-width: 1000px;
+  height: 550px;
+  background: #000000;
+  font-family: monospace;
+  border: 5px solid #aaaaaa;
+}
+
+.title {
+  padding: 100px 0 0 0;
+  font-size: 70px;
+  color: lightblue;
+  text-align: center;
+}
+
+.instructions {
+  margin: auto;
+  padding: 50px 0 70px 0;
+  width: 700px;
+  font-size: 20px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.instructions span {
+  color: #0f8917;
+}
+
+.arrows {
+  text-decoration: underline;
+}
+
+.start-button {
+  margin: auto;
+  border-radius: 12px;
+  max-width: 150px;
+  background: red;
+}
+
+.start-button > a {
+  cursor: pointer;
+}
+
+.start-button > a > p {
+  padding: 15px;
+  text-align: center;
+  color: lightblue;
+  font-size: 22px;
+}
+
+.button-message {
+  margin: auto;
+  text-align: center;
+  padding: 10px 0 0 0;
+  color: #FFFFFF;
+}
+
+.button-message span {
+  color: lightblue;
+  font-size: 14px;
+}
+
+
+/* THE GAME SCREEN */
+
+
+#id {
+  border: 5px solid #aaaaaa;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+}
+
+
+/* END SCREEN */
+
+
+.end-screen {
+  max-width: 1000px;
+  height: 550px;
+  background: #000000;
+  font-family: monospace;
+  border: 5px solid #aaaaaa;
+}
+
+.end-message {
+  padding: 100px 0 0 0;
+  font-size: 70px;
+  color: lightblue;
+  text-align: center;
+}
+
+.score {
+  margin: auto;
+  padding: 50px 0 70px 0;
+  /*width: 700px;*/
+  font-size: 24px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.score > p > span {
+  text-decoration: underline;
+  color: orange;
+  /*color: #0f8917;*/
+  /*color: lightblue;*/
+  font-size: 36px;
+}
+
+.score > p > i {
+  color: orange;
+  font-size: 28px;
+}
+
+.end-buttons {
+  margin: auto;
+  padding: 30px 0 0 0;
+  width: 500px;
+}
+
+.end-buttons > a {
+  float: left;
+  margin: 0 55px;
+  border-radius: 12px;
+  padding: 10px 20px;
+  width: 100px;
+  color: lightblue;
+  font-size: 16px;
+  text-align: center;
+  background: red;
+}
+
+.end-buttons > a:hover {
+  cursor: pointer;
+}
+
+.end-screen-button-messages {
+  margin: auto;
+  width: 600px;
+  padding: 10px 0 0 0;
+  color: #FFFFFF;
+  font-size: 13px;
+}
+
+.end-screen-button-messages > p {
+  float: left;
+  text-align: center;
+}
+
+.end-screen-button-messages > p > span {
+  color: lightblue;
+  font-size: 14px;
+}
+
+.play-again-message {
+  margin: 0 0 0 67px;
+}
+
+.return-to-welcome-screen-message {
+  margin: 0 0 0 60px;
+}
+
+
+/* LINKS BELOW GAME SCREEN */
+
+
+.links {
+  margin: auto;
+  padding: 20px 0 0 50px;
+  max-width: 500px;
+}
+
+.links > ul {
+  margin: auto;
+  max-width: 400px;
+  color: #0E52A5;
+}
+
+.sub-link {
+  float: left;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.sub-link > a > i {
+  font-size: 50px;
+}
