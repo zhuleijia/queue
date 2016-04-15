@@ -28,10 +28,48 @@ MovingObject.prototype.getRandomColor = function () {
     return color;
 };
 
+MovingObject.prototype.getDarkerColor = function (hex,lum) {
+
+	hex = String(hex).replace(/[^0-9a-f]/gi, '');
+	if (hex.length < 6) {
+		hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+	}
+	lum = lum || 0;
+
+	// convert to decimal and change luminosity
+	var rgb = "#", c, i;
+	for (i = 0; i < 3; i++) {
+		c = parseInt(hex.substr(i*2,2), 16);
+		c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+		rgb += ("00"+c).substr(c.length);
+	}
+
+	return rgb;
+};
+
 MovingObject.prototype.draw = function (ctx) {
   ctx.fillStyle = this.color;
-
   ctx.fillRect(this.pos[0], this.pos[1],this.width, this.height);
+
+  ctx.fillStyle = this.getDarkerColor(this.color,-0.5);
+  ctx.beginPath();
+  ctx.moveTo(this.pos[0],this.pos[1]);
+  ctx.lineTo(this.pos[0]+5,this.pos[1]-5);
+  ctx.lineTo(this.pos[0]+5+this.width,this.pos[1]-5);
+  ctx.lineTo(this.pos[0] + this.width,this.pos[1]);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = this.getDarkerColor(this.color,-0.5);
+  ctx.beginPath();
+  ctx.moveTo(this.pos[0]+this.width,this.pos[1]);
+  ctx.lineTo(this.pos[0]+this.width + 5 ,this.pos[1] - 5);
+  ctx.lineTo(this.pos[0]+this.width + 5,this.pos[1] -5 + this.height);
+  ctx.lineTo(this.pos[0]+this.width,this.pos[1]+this.height);
+  ctx.closePath();
+  ctx.fill();
+
+
 };
 
 var NORMAL_FRAME_TIME_DELTA = 1000/60;

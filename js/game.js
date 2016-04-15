@@ -15,7 +15,7 @@ Game.NUM_RECTANGLES = 1;
 
 Game.prototype.addBaseRectangle = function () {
 
-    this.add(new MovingObject({ pos:[200,300],game: this, vel:[0,0], color:"green" }));
+    this.add(new MovingObject({ pos:[200,300],game: this, vel:[0,0]}));
 
     this.score = this.reactangles.length-1;
     return this.reactangles[this.reactangles.length-1];
@@ -30,7 +30,6 @@ Game.prototype.moveDownRectangles = function () {
 
 Game.prototype.addRectangles = function (width, vel) {
   if (width){
-    // console.log("adding rectangle");
     this.add(new MovingObject({
       width:width,
       vel: [Math.abs(vel[0])+0.3,vel[1]],
@@ -42,8 +41,6 @@ Game.prototype.addRectangles = function (width, vel) {
     }));
   }
     this.score = this.reactangles.length-1;
-        console.log("rect added");
-        console.log(this.score);
     return this.reactangles[this.reactangles.length-1];
 };
 
