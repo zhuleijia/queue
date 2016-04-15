@@ -104,7 +104,25 @@ li {
   color: lightblue;
   font-size: 14px;
 }
+.links {
+  margin: auto;
+  color: white;
+}
+.links h2 {
+  margin-right: 40px;
+  text-align: center;
+}
+.links a{
+    padding: 10px;
+  text-align: center;
+}
+.links-link{
+  margin-left: 90px;
+}
+.links a:hover {
 
+  background: grey;
+}
 
 /* THE GAME SCREEN */
 
