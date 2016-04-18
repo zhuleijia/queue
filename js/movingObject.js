@@ -1,11 +1,9 @@
 
 var DEFAULTS = {
   POS: [100,280],
-  VEL: [5,0],
+  VEL: [3,0],
   WIDTH: 100,
   HEIGHT: 20,
-	// COLOR: "#ff0000",
-
 };
 
 

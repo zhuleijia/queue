@@ -44,7 +44,6 @@ GameView.prototype.bindKeyHandlers = function () {
   var previousRectangle;
 
   key("return", function () {
-    console.log("return triggerred");
      currentRectangle = that.currentRectangle;
      previousRectangle = that.previousRectangle;
     if ((currentRectangle.pos[0] < previousRectangle.pos[0] &&

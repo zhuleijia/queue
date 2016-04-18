@@ -256,7 +256,6 @@
 	  var previousRectangle;
 	
 	  key("return", function () {
-	    console.log("return triggerred");
 	     currentRectangle = that.currentRectangle;
 	     previousRectangle = that.previousRectangle;
 	    if ((currentRectangle.pos[0] < previousRectangle.pos[0] &&
@@ -292,11 +291,9 @@
 	
 	var DEFAULTS = {
 	  POS: [100,280],
-	  VEL: [5,0],
+	  VEL: [3,0],
 	  WIDTH: 100,
 	  HEIGHT: 20,
-		// COLOR: "#ff0000",
-	
 	};
 	
 	
