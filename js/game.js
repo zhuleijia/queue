@@ -15,7 +15,7 @@ Game.NUM_RECTANGLES = 1;
 
 Game.prototype.addBaseRectangle = function () {
 
-    this.add(new MovingObject({ pos:[200,300],game: this, vel:[0,0]}));
+    this.add(new MovingObject({ pos:[150,300],game: this, vel:[0,0]}));
 
     this.score = this.reactangles.length-1;
     return this.reactangles[this.reactangles.length-1];

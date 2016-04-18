@@ -16,11 +16,8 @@ p, a, i, span {
 }
 
 li {
-  list-style: none;
+  list-style: decimal inside;
 }
-
-
-/* CLEAR FIX */
 
 
 .group:after {
@@ -30,9 +27,6 @@ li {
 }
 
 
-/* MAIN CONTENT */
-
-
 .main {
   margin: auto;
   padding: 20px 0 0 0;
@@ -40,19 +34,16 @@ li {
 }
 
 
-/* WELCOME SCREEN */
-
-
 .start-screen {
   max-width: 1000px;
   height: 550px;
   background: #000000;
-  font-family: monospace;
+  font-family: sans-serif;
   border: 5px solid #aaaaaa;
 }
 
 .title {
-  padding: 100px 0 0 0;
+  padding: 50px 0 0 0;
   font-size: 70px;
   color: lightblue;
   text-align: center;
@@ -60,11 +51,11 @@ li {
 
 .instructions {
   margin: auto;
-  padding: 50px 0 70px 0;
+  padding: 20px 0 20px 0;
   width: 700px;
   font-size: 20px;
   color: #FFFFFF;
-  text-align: center;
+  text-align: left;
 }
 
 .instructions span {
@@ -136,6 +127,7 @@ li {
 }
 
 .show {
+  display:block;
 }
 
 
@@ -227,10 +219,6 @@ li {
   margin: 0 0 0 60px;
 }
 
-
-/* LINKS BELOW GAME SCREEN */
-
-
 .links {
   margin: auto;
   padding: 20px 0 0 50px;
@@ -253,6 +241,7 @@ li {
   font-size: 50px;
 }
 
-/*#queue-canvas {
-  margin: 0 center;
-}*/
+#queue-canvas {
+  margin: 0 auto;
+  border: 5px solid #aaaaaa;
+}

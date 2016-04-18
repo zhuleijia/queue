@@ -8,9 +8,6 @@
   <body >
     <section class="main">
 
-
-      <!-- WELCOME SCREEN -->
-
       <section id="start-screen" class="start-screen">
         <section class="title">
           <p>
@@ -19,10 +16,11 @@
         </section>
 
         <section class="instructions">
-          <p>Use the "Enter" or "Return" key to place the moving rectangle on top of your stack.</p>
-          <p> If your rectangles do not align closely, the top rectangle will get smaller and the next rectangle will be harder to place.</p>
-          <p>The game ends when you place a rectangle that does not overlap the top rectangle at all.</p>
-
+          <ol>Instructions
+          <li>Use the "Enter" or "Return" key to place the moving rectangle on top of your stack.</li>
+          <li> If your rectangles do not align closely, the top rectangle will get smaller and the next rectangle will be harder to place.</li>
+          <li>The game ends when you place a rectangle that does not overlap the top rectangle at all.</li>
+        </ol>
 
         </section>
 
@@ -41,7 +39,7 @@
           </div>
           </section>
       </section>
-      <canvas id="queue-canvas" class="hide" style="border: 5px solid #aaaaaa;"></canvas>
+      <canvas id="queue-canvas" class="hide" ></canvas>
       <section id="end-screen" class="hide">
 
         <section class="end-message">
@@ -56,10 +54,7 @@
           <a id="return-to-welcome-screen">Welcome Screen</a>
         </section>
 
-
-
       </section>
-    <!-- <canvas></canvas> -->
     <script type="application/javascript" src="vendor/keymaster.js"></script>
     <script type="application/javascript" src="js/bundle.js"></script>
   </body>

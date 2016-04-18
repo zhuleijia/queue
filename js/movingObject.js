@@ -1,8 +1,8 @@
 
 var DEFAULTS = {
-  POS: [100,280],
+  POS: [50,280],
   VEL: [3,0],
-  WIDTH: 100,
+  WIDTH: 200,
   HEIGHT: 20,
 };
 
