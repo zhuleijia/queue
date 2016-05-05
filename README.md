@@ -3,6 +3,12 @@
 [Live][link]
 [link]: http://zhuleijia.github.io/queue/
 
+## Technologies Used
+  - HTML5 Canvas
+  - CSS
+  - Javascript
+  - Library Keymaster for keyboard shortcut
+
 ## Instructions
 
 Queue is a browser game inspired by Stack built using Javascript and HTML5 Canvas.

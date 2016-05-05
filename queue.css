@@ -36,7 +36,7 @@ li {
 
 .start-screen {
   max-width: 1000px;
-  height: 550px;
+  height: 700px;
   background: #000000;
   font-family: sans-serif;
   border: 5px solid #aaaaaa;
@@ -50,10 +50,11 @@ li {
 }
 
 .instructions {
+  float: right;
   margin: auto;
-  padding: 20px 0 20px 0;
-  width: 700px;
-  font-size: 20px;
+  padding: 20px 0 20px 20px;
+  width: 350px;
+  font-size: 25px;
   color: #FFFFFF;
   text-align: left;
 }
@@ -72,7 +73,12 @@ li {
   max-width: 150px;
   background: red;
 }
-
+.start-button:hover {
+  background: #FF4C4C;
+}
+.start-button:active {
+  background: #7f0000;
+}
 .start-button > a {
   cursor: pointer;
 }
@@ -108,13 +114,26 @@ li {
   text-align: center;
 }
 .links-link{
-  margin-left: 90px;
+  width: 300px;
+  margin: 0 auto;
 }
 .links a:hover {
 
   background: grey;
 }
-
+.instructionimg{
+  padding-top:20px;
+  width: 700px;
+  height: 350px;
+  display: block;
+  margin: 0 auto;
+}
+.instruction-img{
+  padding-left: 20px;
+  float: left;
+  width: 300px;
+  height: auto;
+}
 /* THE GAME SCREEN */
 
 
@@ -129,6 +148,7 @@ li {
 .show {
   display:block;
 }
+
 
 
 /* END SCREEN */
@@ -161,8 +181,6 @@ li {
 .score > p > span {
   text-decoration: underline;
   color: orange;
-  /*color: #0f8917;*/
-  /*color: lightblue;*/
   font-size: 36px;
 }
 

@@ -80,7 +80,10 @@
 	var Game = function () {
 	  this.reactangles = [];
 	  this.score = this.reactangles.length;
-	
+	  console.log(this.highestScore);
+	  if (this.highestScore == null){
+	    this.highestScore = 0;
+	  }
 	};
 	
 	
@@ -125,23 +128,34 @@
 	    ctx.fillStyle = 'white';
 	    ctx.fillText("queue: " + this.score, 10, 50);
 	};
+	Game.prototype.drawHighestScore = function(ctx){
+	    ctx.font = "30px san-serif";
+	    ctx.fillStyle = 'red';
+	    ctx.fillText("HighestScore: " + this.highestScore, 10, 90);
+	};
 	
 	Game.prototype.gameOver = function(){
-	  // debugger;
-	  this.cleanUp();
 	  this.goToEndScreen();
+	  this.cleanUp();
+	  // debugger;
 	};
 	Game.prototype.cleanUp = function () {
 	  this.reactangles = [];
 	  this.score = this.reactangles.length;
+	  if (this.score > this.highestScore){
+	    this.highestScore = this.score;
+	  }
 	
 	};
 	var endScreen =                   document.getElementById("end-screen"),
 	    gameScreen =                  document.getElementById("queue-canvas"),
 	    startScreen =                 document.getElementById("start-screen"),
+	    score =                       document.getElementById("score"),
 	    playAgainButton =             document.getElementById("play-again"),
 	    returnToWelcomeScreenButton = document.getElementById("return-to-welcome-screen");
 	var fn = function(event) {
+	  // debugger;
+	
 	  endScreen.className = "hide";
 	  gameScreen.className = "show";
 	
@@ -152,10 +166,11 @@
 	  startScreen.className = "start-screen";
 	};
 	Game.prototype.goToEndScreen = function () {
-	
+	    // debugger;
 	    game = this;
 	    endScreen.className = "end-screen";
 	    gameScreen.className = "hide";
+	    score.children[0].innerHTML = "You managed to stack <span>" + this.score+ "</span> blocks!";
 	    playAgainButton.addEventListener("click", fn);
 	    returnToWelcomeScreenButton.addEventListener("click", fn2);
 	
@@ -166,7 +181,6 @@
 	    canvas.width = Game.DIM_X;
 	    canvas.height = Game.DIM_Y;
 	    var ctx = canvas.getContext("2d");
-	    // key.unbind('return');
 	    new GameView(newGame, ctx).start();
 	    playAgainButton.removeEventListener("click",fn);
 	    returnToWelcomeScreenButton.removeEventListener("click",fn2);
@@ -177,6 +191,7 @@
 	  ctx.fillStyle = Game.BG_COLOR;
 	  ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 	  this.drawScore(ctx);
+	  this.drawHighestScore(ctx);
 	  this.reactangles.forEach(function (object) {
 	    object.draw(ctx);
 	  });
@@ -255,14 +270,14 @@
 	  var currentRectangle;
 	  var previousRectangle;
 	
-	  key("return", function () {
+	  key("space, return", function () {
 	     currentRectangle = that.currentRectangle;
 	     previousRectangle = that.previousRectangle;
 	    if ((currentRectangle.pos[0] < previousRectangle.pos[0] &&
 	      currentRectangle.pos[0]+currentRectangle.width < previousRectangle.pos[0]) ||
 	    (currentRectangle.pos[0] > previousRectangle.pos[0] +previousRectangle.width &&
 	      currentRectangle.pos[0]+currentRectangle.width > previousRectangle.pos[0]+previousRectangle.width) ){
-	        key.unbind('return');
+	        key.unbind('return, space');
 	      return that.stop();
 	
 	

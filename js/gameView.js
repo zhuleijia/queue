@@ -43,14 +43,14 @@ GameView.prototype.bindKeyHandlers = function () {
   var currentRectangle;
   var previousRectangle;
 
-  key("return", function () {
+  key("space, return", function () {
      currentRectangle = that.currentRectangle;
      previousRectangle = that.previousRectangle;
     if ((currentRectangle.pos[0] < previousRectangle.pos[0] &&
       currentRectangle.pos[0]+currentRectangle.width < previousRectangle.pos[0]) ||
     (currentRectangle.pos[0] > previousRectangle.pos[0] +previousRectangle.width &&
       currentRectangle.pos[0]+currentRectangle.width > previousRectangle.pos[0]+previousRectangle.width) ){
-        key.unbind('return');
+        key.unbind('return, space');
       return that.stop();
 
 
