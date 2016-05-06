@@ -1,7 +1,8 @@
 // var Rectangle = require("./rectangle");
 var GameView = require("./gameView");
 var MovingObject = require('./movingObject');
-var Game = function (highScore2) {
+var highScore;
+var Game = function () {
   this.reactangles = [];
   this.score = this.reactangles.length;
   console.log("game start");
@@ -63,10 +64,7 @@ Game.prototype.drawHighestScore = function(ctx){
 };
 
 Game.prototype.gameOver = function(){
-  if (this.score > this.highestScore){
-    this.highestScore = this.score;
-  }
-  highScore = this.highestScore;
+
   this.goToEndScreen();
   this.cleanUp();
   // debugger;
@@ -84,8 +82,6 @@ var endScreen =                   document.getElementById("end-screen"),
     playAgainButton =             document.getElementById("play-again"),
     returnToWelcomeScreenButton = document.getElementById("return-to-welcome-screen");
 var playAgainEvent = function(event) {
-  // debugger;
-
   endScreen.className = "hide";
   gameScreen.className = "show";
 
@@ -94,17 +90,25 @@ var playAgainEvent = function(event) {
 var WelcomeScreenEvent = function(event) {
   endScreen.className = "hide";
   startScreen.className = "start-screen";
-  // game.resetGame();
+  console.log("go back to instructions");
   console.log(highScore);
 };
-var highScore;
+
 Game.prototype.goToEndScreen = function () {
-    // debugger;
     game = this;
     endScreen.className = "end-screen";
     gameScreen.className = "hide";
-    score.children[0].innerHTML = "You managed to stack <span>" + this.score+ "</span> blocks! " + "The Highest Record is <span>" + this.highestScore + "</span>" + " blocks";
-    playAgainButton.addEventListener("click", playAgainEvent);
+    if (this.score > this.highestScore){
+      this.highestScore = this.score;
+    }
+    highScore = this.highestScore;
+    if (this.score === this.highestScore){
+      score.children[0].innerHTML = "Congraduation! New Record! "+ "You managed to stack <span>" + this.score+ "</span> blocks! ";
+    }
+    else{
+      score.children[0].innerHTML = "You managed to stack <span>" + this.score+ "</span> blocks! " + "The Highest Record is <span>" + this.highestScore + "</span>" + " blocks";
+    }
+    // playAgainButton.addEventListener("click", playAgainEvent);
     returnToWelcomeScreenButton.addEventListener("click", WelcomeScreenEvent);
 
   };
@@ -115,7 +119,7 @@ Game.prototype.goToEndScreen = function () {
     canvas.height = Game.DIM_Y;
     var ctx = canvas.getContext("2d");
     new GameView(newGame, ctx).start();
-    playAgainButton.removeEventListener("click",playAgainEvent);
+    // playAgainButton.removeEventListener("click",playAgainEvent);
     returnToWelcomeScreenButton.removeEventListener("click",WelcomeScreenEvent);
   };
 

@@ -49,22 +49,22 @@
 	var GameView = __webpack_require__(2);
 	
 	
-	  var canvas = document.getElementById("queue-canvas");
-	  canvas.width = Game.DIM_X;
-	  canvas.height = Game.DIM_Y;
-	  var ctx = canvas.getContext("2d");
-	  var game = new Game();
+	var canvas = document.getElementById("queue-canvas");
+	canvas.width = Game.DIM_X;
+	canvas.height = Game.DIM_Y;
+	var ctx = canvas.getContext("2d");
+	var game = new Game();
 	
-	  var startScreen = document.getElementsByClassName("start-screen")[0],
-	      gameScreen = document.getElementById("queue-canvas"),
-	      startButton = document.getElementsByClassName("start-button")[0];
+	var startScreen = document.getElementsByClassName("start-screen")[0],
+	    gameScreen = document.getElementById("queue-canvas"),
+	    startButton = document.getElementsByClassName("start-button")[0];
 	
-	  var fn3 = function(event) {
-	    startScreen.className = "hide";
-	    gameScreen.className = "show";
+	var fn3 = function(event) {
+	  startScreen.className = "hide";
+	  gameScreen.className = "show";
 	
-	    new GameView(game, ctx).start();
-	  };
+	  new GameView(game, ctx).start();
+	};
 	
 	  startButton.addEventListener("click", fn3);
 	
@@ -78,7 +78,8 @@
 	// var Rectangle = require("./rectangle");
 	var GameView = __webpack_require__(2);
 	var MovingObject = __webpack_require__(3);
-	var Game = function (highScore2) {
+	var highScore;
+	var Game = function () {
 	  this.reactangles = [];
 	  this.score = this.reactangles.length;
 	  console.log("game start");
@@ -140,10 +141,7 @@
 	};
 	
 	Game.prototype.gameOver = function(){
-	  if (this.score > this.highestScore){
-	    this.highestScore = this.score;
-	  }
-	  highScore = this.highestScore;
+	
 	  this.goToEndScreen();
 	  this.cleanUp();
 	  // debugger;
@@ -161,8 +159,6 @@
 	    playAgainButton =             document.getElementById("play-again"),
 	    returnToWelcomeScreenButton = document.getElementById("return-to-welcome-screen");
 	var playAgainEvent = function(event) {
-	  // debugger;
-	
 	  endScreen.className = "hide";
 	  gameScreen.className = "show";
 	
@@ -171,17 +167,25 @@
 	var WelcomeScreenEvent = function(event) {
 	  endScreen.className = "hide";
 	  startScreen.className = "start-screen";
-	  // game.resetGame();
+	  console.log("go back to instructions");
 	  console.log(highScore);
 	};
-	var highScore;
+	
 	Game.prototype.goToEndScreen = function () {
-	    // debugger;
 	    game = this;
 	    endScreen.className = "end-screen";
 	    gameScreen.className = "hide";
-	    score.children[0].innerHTML = "You managed to stack <span>" + this.score+ "</span> blocks! " + "The Highest Record is <span>" + this.highestScore + "</span>" + " blocks";
-	    playAgainButton.addEventListener("click", playAgainEvent);
+	    if (this.score > this.highestScore){
+	      this.highestScore = this.score;
+	    }
+	    highScore = this.highestScore;
+	    if (this.score === this.highestScore){
+	      score.children[0].innerHTML = "Congraduation! New Record! "+ "You managed to stack <span>" + this.score+ "</span> blocks! ";
+	    }
+	    else{
+	      score.children[0].innerHTML = "You managed to stack <span>" + this.score+ "</span> blocks! " + "The Highest Record is <span>" + this.highestScore + "</span>" + " blocks";
+	    }
+	    // playAgainButton.addEventListener("click", playAgainEvent);
 	    returnToWelcomeScreenButton.addEventListener("click", WelcomeScreenEvent);
 	
 	  };
@@ -192,7 +196,7 @@
 	    canvas.height = Game.DIM_Y;
 	    var ctx = canvas.getContext("2d");
 	    new GameView(newGame, ctx).start();
-	    playAgainButton.removeEventListener("click",playAgainEvent);
+	    // playAgainButton.removeEventListener("click",playAgainEvent);
 	    returnToWelcomeScreenButton.removeEventListener("click",WelcomeScreenEvent);
 	  };
 	
@@ -238,6 +242,7 @@
 	var GameView = function (game, ctx) {
 	  this.ctx = ctx;
 	  this.game = game;
+	  // debugger;
 	  this.previousRectangle = this.game.addBaseRectangle();
 	  this.currentRectangle = this.game.addRectangles();
 	

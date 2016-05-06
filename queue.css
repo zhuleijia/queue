@@ -234,6 +234,19 @@ li {
   margin: 0 0 0 60px;
 }
 
+#return-to-welcome-screen{
+  float: left;
+  margin: 0 170px;
+}
+
+#return-to-welcome-screen:hover {
+  background: #FF4C4C;
+}
+#return-to-welcome-screen:active {
+  background: #7f0000;
+}
+
+
 .links {
   margin: auto;
   padding: 20px 0 0 50px;
