@@ -44,6 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	
 	var Game = __webpack_require__(1);
 	var GameView = __webpack_require__(2);
 	
@@ -77,13 +78,17 @@
 	// var Rectangle = require("./rectangle");
 	var GameView = __webpack_require__(2);
 	var MovingObject = __webpack_require__(3);
-	var Game = function () {
+	var Game = function (highScore2) {
 	  this.reactangles = [];
 	  this.score = this.reactangles.length;
-	  console.log(this.highestScore);
-	  if (this.highestScore == null){
+	  console.log("game start");
+	  console.log(highScore);
+	  if (highScore == null){
 	    this.highestScore = 0;
+	  }else{
+	    this.highestScore = highScore;
 	  }
+	
 	};
 	
 	
@@ -135,6 +140,10 @@
 	};
 	
 	Game.prototype.gameOver = function(){
+	  if (this.score > this.highestScore){
+	    this.highestScore = this.score;
+	  }
+	  highScore = this.highestScore;
 	  this.goToEndScreen();
 	  this.cleanUp();
 	  // debugger;
@@ -142,9 +151,7 @@
 	Game.prototype.cleanUp = function () {
 	  this.reactangles = [];
 	  this.score = this.reactangles.length;
-	  if (this.score > this.highestScore){
-	    this.highestScore = this.score;
-	  }
+	
 	
 	};
 	var endScreen =                   document.getElementById("end-screen"),
@@ -153,7 +160,7 @@
 	    score =                       document.getElementById("score"),
 	    playAgainButton =             document.getElementById("play-again"),
 	    returnToWelcomeScreenButton = document.getElementById("return-to-welcome-screen");
-	var fn = function(event) {
+	var playAgainEvent = function(event) {
 	  // debugger;
 	
 	  endScreen.className = "hide";
@@ -161,18 +168,21 @@
 	
 	  game.resetGame();
 	};
-	var fn2 = function(event) {
+	var WelcomeScreenEvent = function(event) {
 	  endScreen.className = "hide";
 	  startScreen.className = "start-screen";
+	  // game.resetGame();
+	  console.log(highScore);
 	};
+	var highScore;
 	Game.prototype.goToEndScreen = function () {
 	    // debugger;
 	    game = this;
 	    endScreen.className = "end-screen";
 	    gameScreen.className = "hide";
-	    score.children[0].innerHTML = "You managed to stack <span>" + this.score+ "</span> blocks!";
-	    playAgainButton.addEventListener("click", fn);
-	    returnToWelcomeScreenButton.addEventListener("click", fn2);
+	    score.children[0].innerHTML = "You managed to stack <span>" + this.score+ "</span> blocks! " + "The Highest Record is <span>" + this.highestScore + "</span>" + " blocks";
+	    playAgainButton.addEventListener("click", playAgainEvent);
+	    returnToWelcomeScreenButton.addEventListener("click", WelcomeScreenEvent);
 	
 	  };
 	  Game.prototype.resetGame = function () {
@@ -182,8 +192,8 @@
 	    canvas.height = Game.DIM_Y;
 	    var ctx = canvas.getContext("2d");
 	    new GameView(newGame, ctx).start();
-	    playAgainButton.removeEventListener("click",fn);
-	    returnToWelcomeScreenButton.removeEventListener("click",fn2);
+	    playAgainButton.removeEventListener("click",playAgainEvent);
+	    returnToWelcomeScreenButton.removeEventListener("click",WelcomeScreenEvent);
 	  };
 	
 	Game.prototype.draw = function (ctx) {

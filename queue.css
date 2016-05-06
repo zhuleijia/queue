@@ -158,7 +158,7 @@ li {
   max-width: 1000px;
   height: 550px;
   background: #000000;
-  font-family: monospace;
+  font-family: sans-serif;
   border: 5px solid #aaaaaa;
 }
 
@@ -172,21 +172,18 @@ li {
 .score {
   margin: auto;
   padding: 50px 0 70px 0;
-  /*width: 700px;*/
   font-size: 24px;
   color: #FFFFFF;
   text-align: center;
 }
 
 .score > p > span {
-  text-decoration: underline;
-  color: orange;
-  font-size: 36px;
+  color: red;
+
 }
 
 .score > p > i {
-  color: orange;
-  font-size: 28px;
+
 }
 
 .end-buttons {
@@ -202,7 +199,7 @@ li {
   padding: 10px 20px;
   width: 100px;
   color: lightblue;
-  font-size: 16px;
+  font-size: 20px;
   text-align: center;
   background: red;
 }
