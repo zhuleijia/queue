@@ -132,11 +132,11 @@
 	Game.prototype.drawScore = function(ctx){
 	    ctx.font = "30px san-serif";
 	    ctx.fillStyle = 'white';
-	    ctx.fillText("queue: " + this.score, 10, 50);
+	    ctx.fillText("Queue: " + this.score, 10, 50);
 	};
 	Game.prototype.drawHighestScore = function(ctx){
 	    ctx.font = "30px san-serif";
-	    ctx.fillStyle = 'red';
+	    ctx.fillStyle = 'white';
 	    ctx.fillText("HighestScore: " + this.highestScore, 10, 90);
 	};
 	
