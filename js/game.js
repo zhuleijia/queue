@@ -103,10 +103,10 @@ Game.prototype.goToEndScreen = function () {
     }
     highScore = this.highestScore;
     if (this.score === this.highestScore){
-      score.children[0].innerHTML = "Congraduation! New Record! "+ "You managed to stack <span>" + this.score+ "</span> blocks! ";
+      score.children[0].innerHTML = "Congraduation! New Record! "+ "You managed to stack <span>" + this.score+ "</span> blocks! to the queue ";
     }
     else{
-      score.children[0].innerHTML = "You managed to stack <span>" + this.score+ "</span> blocks! " + "The Highest Record is <span>" + this.highestScore + "</span>" + " blocks";
+      score.children[0].innerHTML = "You managed to stack <span>" + this.score+ "</span> blocks to the Queue! " + "The Highest Record is <span>" + this.highestScore + "</span>" + " blocks";
     }
     // playAgainButton.addEventListener("click", playAgainEvent);
     returnToWelcomeScreenButton.addEventListener("click", WelcomeScreenEvent);
